@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030AE6761FB3BE3500B8F7CA /* FanChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030AE6751FB3BE3500B8F7CA /* FanChartRenderer.swift */; };
+		030AE6781FB3BE7E00B8F7CA /* FanFillFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030AE6771FB3BE7E00B8F7CA /* FanFillFormatter.swift */; };
 		06165F2F1D8110E600722320 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06165F241D8110E600722320 /* Charts.framework */; };
 		06761B5E1D98176000D5CE09 /* ChartUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06761B5D1D98176000D5CE09 /* ChartUtilsTests.swift */; };
 		06B11FAF1D811B7000D14B02 /* Charts.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B11FAE1D811B7000D14B02 /* Charts.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -160,6 +162,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		030AE6751FB3BE3500B8F7CA /* FanChartRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanChartRenderer.swift; sourceTree = "<group>"; };
+		030AE6771FB3BE7E00B8F7CA /* FanFillFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanFillFormatter.swift; sourceTree = "<group>"; };
 		06165F241D8110E600722320 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		06165F2E1D8110E600722320 /* ChartsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChartsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		063FF0401D8CC9940094A042 /* Carthage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Carthage.xcconfig; sourceTree = "<group>"; };
@@ -530,6 +534,7 @@
 				06B11FFE1D811B8900D14B02 /* IFillFormatter.swift */,
 				06B11FFF1D811B8900D14B02 /* IValueFormatter.swift */,
 				5BF8813A1DDC4DF70033370C /* IndexAxisValueFormatter.swift */,
+				030AE6771FB3BE7E00B8F7CA /* FanFillFormatter.swift */,
 			);
 			name = Formatters;
 			path = Source/Charts/Formatters;
@@ -609,6 +614,7 @@
 				06B120381D811B8900D14B02 /* YAxisRenderer.swift */,
 				06B120391D811B8900D14B02 /* YAxisRendererHorizontalBarChart.swift */,
 				06B1203A1D811B8900D14B02 /* YAxisRendererRadarChart.swift */,
+				030AE6751FB3BE3500B8F7CA /* FanChartRenderer.swift */,
 			);
 			name = Renderers;
 			path = Source/Charts/Renderers;
@@ -819,6 +825,7 @@
 				06B120571D811B8900D14B02 /* MarkerImage.swift in Sources */,
 				06B1207D1D811B8900D14B02 /* ILineChartDataSet.swift in Sources */,
 				06B120801D811B8900D14B02 /* IPieChartDataSet.swift in Sources */,
+				030AE6761FB3BE3500B8F7CA /* FanChartRenderer.swift in Sources */,
 				06B120C41D811B8900D14B02 /* Transformer.swift in Sources */,
 				06B1206C1D811B8900D14B02 /* LineChartData.swift in Sources */,
 				06B1208F1D811B8900D14B02 /* IHighlighter.swift in Sources */,
@@ -877,6 +884,7 @@
 				06B120BC1D811B8900D14B02 /* XAxisRendererRadarChart.swift in Sources */,
 				06B120461D811B8900D14B02 /* BarLineChartViewBase.swift in Sources */,
 				06B120A61D811B8900D14B02 /* CandleStickChartRenderer.swift in Sources */,
+				030AE6781FB3BE7E00B8F7CA /* FanFillFormatter.swift in Sources */,
 				06B120491D811B8900D14B02 /* ChartViewBase.swift in Sources */,
 				06B120541D811B8900D14B02 /* IMarker.swift in Sources */,
 				06B120BF1D811B8900D14B02 /* YAxisRendererRadarChart.swift in Sources */,
