@@ -7,21 +7,25 @@
 
 import Foundation
 
-final class FanFillFormatter: IFillFormatter {
+open class FanFillFormatter: IFillFormatter {
 
     private var boundaryDataSet : LineChartDataSet?
 
-    init(boundaryDataSet: LineChartDataSet)
+    public init(boundaryDataSet: LineChartDataSet,
+                fillColor: NSUIColor)
     {
         self.boundaryDataSet = boundaryDataSet
+        self.boundaryDataSet?.fillColor = fillColor
+        self.boundaryDataSet?.drawFilledEnabled = true
     }
 
-    func getFillLinePosition(dataSet: ILineChartDataSet, dataProvider: LineChartDataProvider) -> CGFloat
+    open func getFillLinePosition(dataSet: ILineChartDataSet,
+                                  dataProvider: LineChartDataProvider) -> CGFloat
     {
         return 0
     }
 
-    func getFillLineBoundary() -> [ChartDataEntry]?
+    open func getFillLineBoundary() -> [ChartDataEntry]?
     {
         guard let boundaryDataSet = boundaryDataSet else
         {
@@ -31,4 +35,3 @@ final class FanFillFormatter: IFillFormatter {
         return boundaryDataSet.values
     }
 }
-

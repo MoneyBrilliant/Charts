@@ -7,18 +7,7 @@
 
 import Foundation
 
-class FanChartRenderer: LineChartRenderer {
-
-    // todo pba tmp remove
-    struct Constant
-    {
-        struct ProjectionChart
-        {
-            static let dataSetOffset: Int = 1
-            static let shortTargetMonths: Int = 1
-        }
-    }
-
+open class FanChartRenderer: LineChartRenderer {
     override init(dataProvider: LineChartDataProvider?,
                   animator: Animator?,
                   viewPortHandler: ViewPortHandler?) {
@@ -27,11 +16,10 @@ class FanChartRenderer: LineChartRenderer {
                    viewPortHandler: viewPortHandler)
     }
 
-    override func drawLinearFill(context: CGContext,
-                                 dataSet: ILineChartDataSet,
-                                 trans: Transformer,
-                                 bounds: XBounds)
-    {
+    open override func drawLinearFill(context: CGContext,
+                                      dataSet: ILineChartDataSet,
+                                      trans: Transformer,
+                                      bounds: XBounds) {
         guard let dataProvider = dataProvider else
         {
             return
@@ -54,8 +42,14 @@ class FanChartRenderer: LineChartRenderer {
     }
 
     /// Generates the path that is used for filled drawing.
-    private func generateFilledPath(dataSet: ILineChartDataSet, fillMin: CGFloat, bounds: XBounds, matrix: CGAffineTransform) -> CGPath
+    private func generateFilledPath(dataSet: ILineChartDataSet,
+                                    fillMin: CGFloat,
+                                    bounds: XBounds,
+                                    matrix: CGAffineTransform) -> CGPath
     {
+
+        print(#function)
+
         let phaseY = animator?.phaseY ?? 1.0
         let _ = dataSet.mode == .stepped
         let matrix = matrix
@@ -70,26 +64,11 @@ class FanChartRenderer: LineChartRenderer {
 
         entry = dataSet.entryForIndex(bounds.min)
 
-        // start point
-        //
-        //    -
-        //   -
-        //  -
-        // *
-        //
-        // ===========
+        // define start point
         let startPoint = CGPoint(x: entry.x, y: entry.y)
         filled.move(to: startPoint, transform: matrix)
 
-        // top edge
-        //
-        //     *
-        //    -
-        //   -
-        //  -
-        //
-        // ===========
-
+        // define top edge
         var currentLineEntry: ChartDataEntry?
 
         for x in stride(from: (bounds.min + 1), through: bounds.range + bounds.min, by: 1) {
@@ -99,46 +78,24 @@ class FanChartRenderer: LineChartRenderer {
             // we'll need the last point along the top edge.
             currentLineEntry = e
 
-            // never actually called
-            // if isDrawSteppedEnabled {
-            //     guard let ePrev = dataSet.entryForIndex(x-1) else { continue }
-            //     let p = CGPoint(x: CGFloat(e.x), y: CGFloat(ePrev.y * phaseY))
-            //     filled.addLine(to: p, transform: matrix)
-            // }
-
             let p = CGPoint(x: CGFloat(e.x), y: CGFloat(e.y * phaseY))
             filled.addLine(to: p, transform: matrix)
         }
 
-        // right edge
-        //  |
-        //  |
-        //  |
-        //  *
+        // define right edge
         guard let boundaryEntry = boundaryEntryOptional else { return CGPath(ellipseIn: CGRect.zero, transform: nil) }
         guard let boundaryEntryLast = boundaryEntry.last, let _ = currentLineEntry else { return CGPath(ellipseIn: CGRect.zero, transform: nil) }
 
         let p = CGPoint(x: boundaryEntryLast.x, y: boundaryEntryLast.y)
         filled.addLine(to: p, transform: matrix)
 
-        // bottom edge
-        //
-        // *-----------
-        //
-        // ===========
+        // define bottom edge
         for x in boundaryEntry.reversed() {
             let p = CGPoint(x: CGFloat(x.x), y: CGFloat(x.y * phaseY))
             filled.addLine(to: p, transform: matrix)
         }
 
-        // close up
-        // |
-        // |
-        // |
-        // *
-        // *-----------
-        //
-        // ===========
+        // close fill area.
         entry = dataSet.entryForIndex(bounds.range + bounds.min)
         if entry != nil {
             filled.addLine(to: CGPoint(x: CGFloat(entry.x), y: fillMin), transform: matrix)
@@ -170,7 +127,10 @@ class FanChartRenderer: LineChartRenderer {
 
             let valueFont = dataSet.valueFont
 
-            guard let formatter = dataSet.valueFormatter else { continue }
+            guard let formatter = dataSet.valueFormatter else
+            {
+                continue
+            }
 
             let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
             let valueToPixelMatrix = trans.valueToPixelMatrix
@@ -189,10 +149,10 @@ class FanChartRenderer: LineChartRenderer {
 
             for j in stride(from: _xBounds.min, through: min(_xBounds.min + _xBounds.range, _xBounds.max), by: 1)
             {
-                if j == Int(_xBounds.max - Constant.ProjectionChart.dataSetOffset)
+                // get last point along the x-axis
+                if j == Int(_xBounds.max)
                 {
-                    // Check if is on short target month then use the `dataSet.entryCount` to find the offset
-                    guard let e = j > Constant.ProjectionChart.shortTargetMonths ? dataSet.entryForIndex(j) : dataSet.entryForIndex(dataSet.entryCount - (Constant.ProjectionChart.shortTargetMonths - Constant.ProjectionChart.dataSetOffset)) else
+                    guard let e = dataSet.entryForIndex(j) else
                     {
                         break
                     }
