@@ -47,9 +47,6 @@ open class FanChartRenderer: LineChartRenderer {
                                     bounds: XBounds,
                                     matrix: CGAffineTransform) -> CGPath
     {
-
-        print(#function)
-
         let phaseY = animator?.phaseY ?? 1.0
         let _ = dataSet.mode == .stepped
         let matrix = matrix
